@@ -23,8 +23,8 @@ function PluginResult (args, env) {
             env.response.send(200, encodeURIComponent(JSON.stringify(data)));
         },
         callback = function (success, status, data, keepCallback) {
-            var executeString = "cordova.callbackFromNative(" + decodeURIComponent(args.callbackId) +
-                ", " + !!success + ", " + status + ", " + data + ", " + !!keepCallback + ");";
+            var executeString = "cordova.callbackFromNative('" + decodeURIComponent(args.callbackId) +
+                "', " + !!success + ", " + status + ", " + data + ", " + !!keepCallback + ");";
             env.webview.executeJavaScript(executeString);
         };
 
