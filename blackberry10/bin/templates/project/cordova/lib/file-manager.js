@@ -157,7 +157,7 @@ function generateFrameworkModulesJS(session) {
 }
 
 function copyWWE(session, target) {
-    var src = path.normalize(session.conf.CHROME + "/wwe"),
+    var src = path.normalize(session.conf.CHROME + "/../wwe"),
         dest = path.normalize(session.sourceDir);
 
     if (!fs.existsSync(path.join(dest, "wwe"))) {
