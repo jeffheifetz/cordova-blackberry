@@ -84,13 +84,6 @@ function prepare(session) {
         wrench.rmdirSyncRecursive(session.sourceDir);
     }
 
-    if (!fs.existsSync(dest.CHROME)) {
-        wrench.mkdirSyncRecursive(dest.CHROME, "0755");
-    }
-
-    // copy bootstrap as well as ui.html file
-    wrench.copyDirSyncRecursive(conf.CHROME, dest.CHROME);
-
     // unzip archive
     if (fs.existsSync(session.archivePath)) {
         if (session.archivePath.toLowerCase().match("[.]zip$")) {
@@ -156,13 +149,11 @@ function generateFrameworkModulesJS(session) {
     fs.writeFileSync(path.normalize(dest.CHROME + "/frameworkModules.js"), frameworkModulesStr + modulesStr);
 }
 
-function copyWWE(session, target) {
-    var src = path.normalize(session.conf.CHROME + "/../wwe"),
+function copyNative(session, target) {
+    var src = path.normalize(session.conf.NATIVE + "/" + target),
         dest = path.normalize(session.sourceDir);
 
-    if (!fs.existsSync(path.join(dest, "wwe"))) {
-        packagerUtils.copyFile(src, dest);
-    }
+    copyDirContents(src, dest);
 }
 
 function copyWebworks(session) {
@@ -184,17 +175,6 @@ function copyWebworks(session) {
     }
 }
 
-
-function copyJnextDependencies(session) {
-    var src = session.conf.JNEXT_AUTH,
-        dest = path.normalize(session.sourcePaths.JNEXT_PLUGINS);
-
-    if (!fs.existsSync(path.join(dest, "auth.txt"))) {
-        wrench.mkdirSyncRecursive(dest, "0755");
-        packagerUtils.copyFile(src, dest);
-    }
-}
-
 function hasValidExtension(file) {
     return VALID_EXTENSIONS.some(function (element, index, array) {
         return path.extname(file) === element;
@@ -204,11 +184,9 @@ function hasValidExtension(file) {
 module.exports = {
     unzip: unzip,
 
-    copyWWE: copyWWE,
+    copyNative: copyNative,
 
     copyWebworks : copyWebworks,
-
-    copyJnextDependencies: copyJnextDependencies,
 
     prepareOutputFiles: prepare,
 

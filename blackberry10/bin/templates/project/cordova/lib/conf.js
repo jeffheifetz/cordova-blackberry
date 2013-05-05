@@ -30,7 +30,7 @@ function getToolsDir() {
 module.exports = {
     ROOT: path.normalize(__dirname + "/../framework"),
     PROJECT_ROOT: path.normalize(__dirname + "/../../"),
-    CHROME: path.normalize(__dirname + "/../../native/chrome"),
+    NATIVE: path.normalize(__dirname + "/../../native"),
     JNEXT_AUTH: path.normalize(__dirname + "/../../native/plugins/jnext/auth.txt"),
     BIN: path.normalize(__dirname + "/../framework/bin"),
     LIB: path.normalize(__dirname + "/../framework/lib"),

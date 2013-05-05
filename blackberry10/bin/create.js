@@ -33,6 +33,7 @@ var build,
     project_path = process.argv[2],
     app_id = process.argv[3],
     bar_name = process.argv[4],
+    TARGETS = ["device", "simulator"],
     TEMPLATE_PROJECT_DIR = path.join(__dirname, "templates", "project"),
     MODULES_PROJECT_DIR = path.join(__dirname, "..", "node_modules"),
     BOOTSTRAP_PROJECT_DIR = path.join(__dirname, "..", "framework", "bootstrap"),
@@ -40,7 +41,7 @@ var build,
     BUILD_DIR = path.join(__dirname, "build"),
     CORDOVA_JS_SRC = path.join(__dirname, "..", "javascript", "cordova.blackberry10.js"),
     update_dir = path.join(project_path, "lib", "cordova." + version),
-    chrome_dir = path.join(project_path, "native", "chrome"),
+    native_dir = path.join(project_path, "native"),
     js_path = "javascript",
     js_basename = "cordova-" + version + ".js";
 
@@ -96,8 +97,7 @@ function copyJavascript() {
 }
 
 function copyFilesToProject() {
-    var nodeModulesDest = path.join(project_path, "cordova", "node_modules"),
-        frameworkLibDest = path.join(chrome_dir, "lib");
+    var nodeModulesDest = path.join(project_path, "cordova", "node_modules");
 
     // create project using template directory
     wrench.mkdirSyncRecursive(project_path, 0777);
@@ -116,9 +116,14 @@ function copyFilesToProject() {
     fs.chmodSync(path.join(nodeModulesDest, "plugman", "main.js"), 0755);
 
     //copy framework bootstrap
-    wrench.mkdirSyncRecursive(frameworkLibDest);
-    wrench.copyDirSyncRecursive(BOOTSTRAP_PROJECT_DIR, chrome_dir);
-    wrench.copyDirSyncRecursive(FRAMEWORK_LIB_PROJECT_DIR, frameworkLibDest);
+    TARGETS.forEach(function (target) {
+        var chromeDir = path.join(native_dir, target, "chrome"),
+            frameworkLibDir = path.join(chromeDir, "lib");
+
+        wrench.mkdirSyncRecursive(frameworkLibDir);
+        wrench.copyDirSyncRecursive(BOOTSTRAP_PROJECT_DIR, chromeDir);
+        wrench.copyDirSyncRecursive(FRAMEWORK_LIB_PROJECT_DIR, frameworkLibDir);
+    });
 
     // save release
     wrench.mkdirSyncRecursive(update_dir, 0777);

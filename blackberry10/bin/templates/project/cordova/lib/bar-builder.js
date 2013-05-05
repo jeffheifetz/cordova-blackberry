@@ -34,8 +34,7 @@ function buildTarget(previous, baton) {
     wrench.mkdirSyncRecursive(session.outputDir + "/" + target);
 
     //Copy resources (could be lost if copying assets from other project)
-    fileManager.copyWWE(this.session, target);
-    fileManager.copyJnextDependencies(this.session);
+    fileManager.copyNative(this.session, target);
 
     if (config.packageCordovaJs) {
         //Package cordova.js to chrome folder

@@ -22,7 +22,7 @@
     <name>Network Information</name>
 
     <platform name="blackberry10">
-        <source-file src="src/blackberry10/index.js" target-dir="Network" />
+        <source-file src="src/blackberry10/index.js" target-dir="NetworkStatus" />
         <config-file target="www/config.xml" parent="/widget">
             <feature name="NetworkStatus" value="NetworkStatus"/>
         </config-file>

@@ -133,12 +133,11 @@ function addPlugin (pluginPath) {
         //TODO: figure out why Node doesn't have startsWith ...?
         //If the plugin has already been fetched don't do so again
         if (pluginDir.indexOf(GLOBAL_PLUGIN_PATH) !== 0) {
-            plugmanInterface.fetch(pluginDir, true);
+            plugmanInterface.install(pluginDir, true);
         }
         if (pluginDir.indexOf(LOCAL_PLUGIN_PATH) !== 0) {
-            plugmanInterface.fetch(pluginDir);
+            plugmanInterface.install(pluginDir);
         }
-        plugmanInterface.install(pluginDir);
     });
 }
 
