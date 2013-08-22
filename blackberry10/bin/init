@@ -17,7 +17,7 @@
 #       under the License.
 #
 #!/bin/sh
-CURRENT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+CURRENT_DIR=$( dirname "${BASH_SOURCE[0]}" )
 LOCAL_NODE_BIN=$CURRENT_DIR/dependencies/node/bin
 LOCAL_BBTOOLS=$CURRENT_DIR/dependencies/bb-tools/bin
 
